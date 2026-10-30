@@ -1,0 +1,2143 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #4b2e2a;
+  text-align: center;
+  /* DITUKAR KEPADA WARNA CREAM SEPERTI DIMINTA */
+  background: linear-gradient(180deg, #FFFDF2, #F5EDDC);
+  overflow-x: hidden;
+}
+
+button,
+a,
+input {
+  font-family: inherit;
+}
+
+/* OPENING SCREEN */
+.opening-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255, 248, 244, 0.25), rgba(255, 248, 244, 0.9)),
+    url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=80") center / cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 1.15s ease, transform 1.15s ease, filter 1.15s ease;
+}
+
+.opening-screen.hide-opening {
+  opacity: 0;
+  transform: scale(1.08);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.opening-card {
+  position: relative;
+  width: 84%;
+  max-width: 390px;
+  padding: 48px 28px;
+  border-radius: 40px;
+  background: linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 250, 247, 0.86));
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 80px rgba(68, 38, 31, 0.24), inset 0 0 25px rgba(255, 255, 255, 0.65);
+  animation: softFloat 3.8s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.opening-card::before,
+.opening-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.opening-card::before {
+  inset: 13px;
+  border: 1px solid rgba(139, 94, 75, 0.22);
+  border-radius: 30px;
+}
+
+.opening-card::after {
+  inset: 23px;
+  border: 1px solid rgba(139, 94, 75, 0.16);
+  border-radius: 22px;
+}
+
+.opening-card > p,
+.opening-card > h1,
+.opening-card > span,
+.opening-card > button {
+  position: relative;
+  z-index: 2;
+}
+
+.corner {
+  position: absolute;
+  z-index: 1;
+  font-size: 34px;
+  color: rgba(151, 101, 73, 0.5);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.corner-tl { top: 19px; left: 20px; }
+.corner-tr { top: 19px; right: 20px; transform: rotate(90deg); }
+.corner-bl { bottom: 19px; left: 20px; transform: rotate(-90deg); }
+.corner-br { bottom: 19px; right: 20px; transform: rotate(180deg); }
+
+.mini-title {
+  margin: 0 0 16px;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #8b5e4b;
+}
+
+.opening-card h1 {
+  margin: 7px 0;
+  font-family: "Great Vibes", cursive;
+  font-size: 66px;
+  font-weight: 400;
+  line-height: 0.95;
+  color: #4b2e2a;
+}
+
+.ampersand {
+  display: block;
+  margin: 10px 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  color: #a46f5d;
+}
+
+.opening-date {
+  margin: 24px 0;
+  font-size: 15px;
+  color: #6f4a40;
+}
+
+.open-button {
+  border: none;
+  padding: 14px 34px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b5e4b, #c49a87);
+  color: white;
+  font-size: 15px;
+  letter-spacing: 0.8px;
+  box-shadow: 0 12px 30px rgba(139, 94, 75, 0.35);
+  cursor: pointer;
+}
+
+.open-button:active {
+  transform: scale(0.96);
+}
+
+.small-note {
+  margin: 20px 0 0;
+  font-size: 12px;
+  color: #8b5e4b;
+  opacity: 0.8;
+}
+
+.ornament {
+  position: absolute;
+  color: rgba(139, 94, 75, 0.22);
+  font-size: 130px;
+  animation: ornamentMove 7s ease-in-out infinite;
+}
+
+.ornament-top { top: 5%; left: 3%; }
+.ornament-bottom { bottom: 5%; right: 3%; animation-delay: 1.4s; }
+
+/* MAIN CONTENT */
+.main-content {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(35px);
+  transition: opacity 1s ease, transform 1s ease;
+  padding: 28px 18px 115px;
+}
+
+.main-content.show-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hero-section {
+  margin: 0 auto;
+  padding: 18px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* SEMUA KAD GUNA FRAME GAMBAR SENDIRI */
+.wedding-cover-card,
+.invitation-card,
+.event-card,
+.program-card,
+.prayer-card {
+  position: relative;
+  width: min(92vw, 430px);
+  aspect-ratio: 9 / 16;
+  margin: 18px auto;
+  padding: 0;
+  border-radius: 18px;
+  background-image: url("images/Pearl Grace 14.png?v=10");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: white;
+  box-shadow: 0 16px 35px rgba(60, 40, 35, 0.18);
+  overflow: hidden;
+}
+
+.flower,
+.big-flower,
+.petal,
+.floral-branch {
+  display: none;
+}
+
+.arch-frame,
+.event-arch,
+.program-arch,
+.prayer-arch {
+  position: relative;
+  z-index: 3;
+  min-height: 100%;
+  margin: 0;
+  padding: 105px 38px 70px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* KAD 1 - COVER */
+.cover-title,
+.cover-date,
+.cover-quote,
+.program-title,
+.prayer-title,
+.event-day,
+.invite-small {
+  font-family: "Cormorant Garamond", serif;
+  color: #8c514f;
+}
+
+.cover-title {
+  margin: 0 0 38px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+
+.cover-name {
+  margin: 0;
+  font-family: "Great Vibes", cursive;
+  font-size: 54px;
+  font-weight: 400;
+  line-height: 0.9;
+  color: #8c514f;
+}
+
+.cover-name span {
+  display: block;
+  margin: 10px 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  color: #8c514f;
+}
+
+.cover-date {
+  margin: 34px 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.cover-place {
+  margin: 0 0 30px;
+  font-family: "Great Vibes", cursive;
+  font-size: 25px;
+  color: #8c514f;
+}
+
+.cover-quote {
+  max-width: 280px;
+  margin: 0 auto;
+  transform: translateY(-25px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+/* KAD 2 - JEMPUTAN */
+.invitation-card .arch-frame {
+  padding: 105px 42px 70px;
+  transform: translateY(40px);
+}
+
+.bismillah,
+.prayer-bismillah {
+  margin: 0 0 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  line-height: 1.1;
+  color: #10804c;
+}
+
+.invite-small {
+  margin: 0 0 20px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.parent-name {
+  margin: 5px 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  color: #1f1715;
+  text-transform: uppercase;
+}
+
+.and-text {
+  margin: 8px 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #1f1715;
+}
+
+.invite-text {
+  max-width: 310px;
+  margin: 24px auto 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #1f1715;
+}
+
+.script-name {
+  margin: 5px 0;
+  font-family: "Great Vibes", cursive;
+  font-size: 3.2rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #1f1715;
+}
+
+/* KAD 3 - TARIKH */
+.event-arch {
+  justify-content: flex-start;
+  padding-top: 70px;
+}
+
+.event-icon,
+.location-icon {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-icon {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 18px;
+  background: rgba(139, 94, 75, 0.1);
+  border: 1px solid rgba(139, 94, 75, 0.18);
+  font-size: 25px;
+}
+
+.event-day {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.event-date-text {
+  margin: 8px 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #3f2a25;
+}
+
+.countdown,
+.event-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.event-countdown {
+  margin: 0 auto 34px;
+  padding: 12px 10px;
+  border-radius: 24px;
+  background: rgba(255, 248, 244, 0.75);
+  border: 1px solid rgba(139, 94, 75, 0.1);
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.7);
+}
+
+.event-countdown div {
+  padding: 8px 2px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.event-countdown strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  color: #8b5e4b;
+}
+
+.event-countdown span {
+  display: block;
+  margin-top: 6px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #6f4a40;
+  text-transform: uppercase;
+}
+
+.event-time-box {
+  width: fit-content;
+  margin: 0 auto 22px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: rgba(139, 94, 75, 0.08);
+  border: 1px solid rgba(139, 94, 75, 0.14);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #3f2a25;
+}
+
+.event-time-box p {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+}
+
+.location-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  background: rgba(196, 154, 135, 0.16);
+  font-size: 25px;
+}
+
+.event-location {
+  max-width: 270px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(139, 94, 75, 0.1);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #1f1715;
+}
+
+/* KAD 4 - ATURCARA */
+.program-title {
+  margin: 0 0 24px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+
+.program-timeline {
+  position: relative;
+  width: 100%;
+  max-width: 310px;
+  margin: 0 auto;
+  display: grid;
+  gap: 22px;
+  transform: scale(0.92);
+}
+
+.program-timeline::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+  background: rgba(185, 110, 70, 0.35);
+}
+
+.program-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.program-dot {
+  position: relative;
+  z-index: 2;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #a68a80;
+  flex: 0 0 11px;
+}
+
+.program-box {
+  flex: 1;
+  padding: 20px 18px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 8px 18px rgba(60, 45, 40, 0.12);
+  border: 1px solid rgba(139, 94, 75, 0.07);
+}
+
+.program-box h3,
+.program-box p {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 4px;
+}
+
+.program-box h3 {
+  margin-bottom: 10px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1f1715;
+}
+
+.program-box p {
+  font-size: 17px;
+  color: #7b625d;
+}
+
+/* KAD 5 - DOA */
+.prayer-title {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.prayer-bismillah {
+  font-size: 25px;
+  margin-bottom: 18px;
+}
+
+.prayer-text,
+.prayer-ending {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  color: #1f1715;
+}
+
+.prayer-text {
+  max-width: 285px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.prayer-ending {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.divider-line {
+  width: 135px;
+  height: 16px;
+  margin: 0 auto 18px;
+  position: relative;
+}
+
+.divider-line::before,
+.divider-line::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 52px;
+  height: 1px;
+  background: rgba(80, 80, 80, 0.45);
+}
+
+.divider-line::before { left: 0; }
+.divider-line::after { right: 0; }
+
+.divider-line span {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  width: 8px;
+  height: 8px;
+  background: rgba(80, 80, 80, 0.55);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.divider-line.bottom {
+  margin-top: 26px;
+  margin-bottom: 0;
+}
+
+/* FOOTER */
+.footer-brand {
+  width: min(92vw, 430px);
+  margin: 24px auto 110px;
+  padding: 24px 18px;
+  text-align: center;
+  color: #8b5e4b;
+}
+
+.footer-brand p {
+  margin: 6px 0;
+  font-size: 13px;
+}
+
+.footer-brand h3 {
+  margin: 4px 0;
+  font-size: 28px;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+.footer-brand .tagline {
+  margin-bottom: 16px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.footer-brand a {
+  display: inline-block;
+  min-width: 220px;
+  max-width: 300px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b5e4b, #c49a87);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  box-shadow: 0 10px 25px rgba(139, 94, 75, 0.25);
+}
+
+/* BOTTOM MENU */
+.bottom-menu {
+  position: fixed;
+  left: 50%;
+  bottom: 15px;
+  z-index: 999;
+  width: 92%;
+  max-width: 430px;
+  padding: 10px 8px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 14px 35px rgba(65, 38, 31, 0.16);
+  display: flex;
+  justify-content: space-around;
+  opacity: 0;
+  transform: translateX(-50%) translateY(35px);
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.invitation-opened .bottom-menu {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.bottom-menu a,
+.menu-calendar-btn,
+.menu-rsvp-btn,
+.menu-contact-btn {
+  border: none;
+  background: transparent;
+  color: #8b5e4b;
+  text-decoration: none;
+  font-size: 11.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bottom-menu span,
+.menu-calendar-btn span,
+.menu-rsvp-btn span,
+.menu-contact-btn span {
+  font-size: 18px;
+}
+
+/* MUSIC BUTTON - JANGAN PADAM */
+.music-button {
+  position: fixed;
+  right: 18px;
+  bottom: 88px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #8b5e4b;
+  font-size: 22px;
+  box-shadow: 0 10px 28px rgba(65, 38, 31, 0.18);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(25px);
+  pointer-events: none;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.invitation-opened .music-button {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.music-button.playing {
+  animation: musicPulse 1.8s ease-in-out infinite;
+}
+
+/* POPUP RSVP */
+.rsvp-overlay,
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.62);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.rsvp-overlay.show,
+.contact-overlay.show {
+  display: flex;
+}
+
+.rsvp-popup,
+.contact-popup {
+  position: relative;
+  width: min(92vw, 420px);
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 42px 28px 34px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  animation: popupPop 0.35s ease;
+}
+
+.contact-popup {
+  padding-top: 58px;
+}
+
+.rsvp-close,
+.contact-close {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 7px;
+  background: #ff4b43;
+  color: white;
+  font-size: 24px;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.rsvp-title {
+  margin: 0 0 22px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #3f2a25;
+}
+
+.rsvp-form {
+  display: grid;
+  gap: 18px;
+}
+
+.rsvp-form input {
+  width: 100%;
+  padding: 15px 16px;
+  border: none;
+  border-bottom: 2px solid rgba(80, 80, 80, 0.25);
+  background: #fafafa;
+  text-align: center;
+  font-size: 15px;
+  color: #333;
+  outline: none;
+}
+
+.rsvp-form input:focus {
+  border-bottom-color: #8b5e4b;
+}
+
+.attendance-title {
+  margin: 4px 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f1715;
+}
+
+.attendance-toggle {
+  width: 150px;
+  height: 68px;
+  margin: 0 auto 8px;
+  padding: 10px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 16px 35px rgba(70, 45, 40, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.attendance-option {
+  width: 54px;
+  height: 38px;
+  border: none;
+  border-radius: 999px;
+  background: #eef7fb;
+  color: #8b5e4b;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.attendance-option.active {
+  background: #47d68c;
+  color: white;
+}
+
+.rsvp-submit {
+  margin-top: 8px;
+  width: 82%;
+  justify-self: center;
+  padding: 16px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #4d64c8, #7437e8);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* POPUP CONTACT */
+.contact-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.contact-card {
+  width: 100%;
+  min-width: 0;
+  padding: 14px;
+  border-radius: 6px;
+  background: white;
+  box-shadow: 0 5px 18px rgba(60, 45, 40, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-info {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.contact-info h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: #1f1715;
+}
+
+.contact-info p {
+  margin: 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.contact-actions {
+  flex-shrink: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.contact-actions a {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.contact-actions svg {
+  width: 18px;
+  height: 18px;
+}
+
+.whatsapp-icon svg { fill: #25d366; }
+.call-icon svg { fill: #222; }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(80px) scale(0.96);
+  filter: blur(10px);
+  transition: opacity 1s ease, transform 1s ease, filter 1s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* ANIMATION */
+@keyframes softFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes ornamentMove {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(8deg) translateY(-18px); }
+}
+
+@keyframes musicPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 28px rgba(65, 38, 31, 0.18);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 12px 34px rgba(139, 94, 75, 0.32);
+  }
+}
+
+@keyframes popupPop {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 430px) {
+  .opening-card h1 {
+    font-size: 58px;
+  }
+
+  .wedding-cover-card,
+  .invitation-card,
+  .event-card,
+  .program-card,
+  .prayer-card {
+    width: 92vw;
+  }
+
+  .arch-frame,
+  .event-arch,
+  .program-arch,
+  .prayer-arch {
+    padding: 88px 30px 58px;
+  }
+
+  .cover-name {
+    font-size: 48px;
+  }
+
+  .cover-place {
+    font-size: 22px;
+  }
+
+  .cover-quote {
+    font-size: 10px;
+  }
+
+  .invitation-card .script-name {
+    max-width: 230px;
+    margin: 4px auto;
+    font-size: 22px;
+    line-height: 1.05;
+    white-space: normal;
+  }
+
+  .invitation-card .and-text {
+    font-size: 15px;
+    margin: 2px 0;
+  }
+
+  .invitation-card .invite-text {
+    max-width: 260px;
+    margin: 16px auto 10px;
+    font-size: 13px;
+    line-height: 1.15;
+  }
+
+  .invitation-card .parent-name {
+    font-size: 15px;
+  }
+
+  .invitation-card .bismillah {
+    font-size: 25px;
+  }
+
+  .event-card .event-arch {
+    padding-top: 70px;
+    padding-bottom: 50px;
+    transform: translateY(-10px);
+  }
+
+  .event-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 14px;
+    font-size: 20px;
+  }
+
+  .event-day {
+    font-size: 13px;
+    letter-spacing: 4px;
+  }
+
+  .event-date-text {
+    margin-bottom: 22px;
+    font-size: 20px;
+  }
+
+  .event-countdown {
+    transform: scale(0.7);
+    margin: 0 auto 18px;
+  }
+
+  .event-countdown strong {
+    font-size: 18px;
+  }
+
+  .event-countdown span {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .event-time-box {
+    transform: scale(0.82);
+    margin-bottom: 16px;
+  }
+
+  .event-time-box p {
+    font-size: 14px;
+  }
+
+  .location-icon {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .event-location {
+    max-width: 220px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .program-title {
+    font-size: 21px;
+    letter-spacing: 2.5px;
+  }
+
+  .program-box {
+    padding: 17px 14px;
+  }
+
+  .program-box h3,
+  .program-box p {
+    font-size: 15px;
+    letter-spacing: 3px;
+  }
+
+  .prayer-card .prayer-title {
+    font-size: 15px;
+  }
+
+  .prayer-card .prayer-bismillah {
+    font-size: 22px;
+  }
+
+  .prayer-card .prayer-text {
+    max-width: 260px;
+    font-size: 12.5px;
+    line-height: 1.35;
+  }
+
+  .prayer-card .prayer-ending {
+    font-size: 12.5px;
+  }
+}
+/* KECILKAN ATURCARA MAJLIS */
+.program-timeline {
+  max-width: 285px !important;
+  gap: 14px !important;
+}
+
+.program-item {
+  gap: 12px !important;
+}
+
+.program-box {
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+}
+
+.program-box h3 {
+  margin: 0 0 6px !important;
+  font-size: 13px !important;
+  letter-spacing: 3px !important;
+}
+
+.program-box p {
+  margin: 3px 0 !important;
+  font-size: 13px !important;
+  letter-spacing: 3px !important;
+  line-height: 1.25 !important;
+}
+
+/* kecilkan titik dan line */
+.program-dot {
+  width: 9px !important;
+  height: 9px !important;
+  flex: 0 0 9px !important;
+}
+
+.program-timeline::before {
+  left: 12px !important;
+}
+/* NAIKKAN ATURCARA MAJLIS KE ATAS */
+.program-arch {
+  justify-content: flex-start !important;
+  padding-top: 105px !important;
+}
+
+.program-title {
+  margin-bottom: 32px !important;
+}
+
+.program-timeline {
+  margin-top: 0 !important;
+}
+.program-arch {
+  justify-content: flex-start !important;
+  padding-top: 85px !important;
+}
+.program-arch {
+  justify-content: flex-start !important;
+  padding-top: 120px !important;
+}
+/* GERAKKAN TAJUK SAHAJA - TAK GANGGU ATURCARA */
+.program-title {
+  position: relative !important;
+  left: -25px !important;
+  top: 25px !important;
+  margin: 0 0 32px !important;
+  font-size: 18px !important;
+  letter-spacing: 5px !important;
+  text-align: center !important;
+}
+/* SAMAKAN STYLE BUTTON MENU BAWAH DENGAN LINK */
+.bottom-menu button,
+.bottom-menu a {
+  border: none !important;
+  background: transparent !important;
+  color: #8b5e4b !important;
+  text-decoration: none !important;
+  font-size: 11.5px !important;
+  font-family: inherit !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 3px !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+.bottom-menu button span,
+.bottom-menu a span {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+.bottom-menu {
+  pointer-events: auto !important;
+  z-index: 3000 !important;
+}
+
+.bottom-menu button,
+.bottom-menu a {
+  pointer-events: auto !important;
+}
+/* POPUP LOKASI */
+.location-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.62);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.location-overlay.show {
+  display: flex !important;
+}
+
+.location-popup {
+  position: relative;
+  width: min(90vw, 360px);
+  padding: 38px 26px 30px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  text-align: center;
+  animation: popupPop 0.35s ease;
+}
+
+.location-close {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 7px;
+  background: #ff4b43;
+  color: white;
+  font-size: 24px;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.location-title {
+  margin: 0 0 8px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #3f2a25;
+}
+
+.location-text {
+  margin: 0 0 24px;
+  font-size: 14px;
+  color: #7b5a51;
+}
+
+.location-buttons {
+  display: grid;
+  gap: 14px;
+}
+
+.location-buttons a {
+  display: block;
+  padding: 15px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b5e4b, #c49a87);
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  box-shadow: 0 10px 25px rgba(139, 94, 75, 0.25);
+}
+/* ICON GOOGLE MAPS & WAZE DALAM POPUP LOKASI */
+.location-choice {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+.location-choice img {
+  width: 26px !important;
+  height: 26px !important;
+  object-fit: contain !important;
+}
+
+.location-choice span {
+  line-height: 1 !important;
+}
+/* TEMA OXBLOOD + AMBER + DEEP GREEN */
+:root {
+  --theme-main: #56080F;
+  --theme-accent: #DA8429;
+  --theme-green: #1F3E28;
+  --theme-red: #A80D1D;
+  --theme-soft: #9F433E;
+}
+
+/* Warna tulisan utama */
+.cover-title,
+.cover-name,
+.cover-name span,
+.cover-date,
+.cover-place,
+.cover-quote,
+.program-title,
+.prayer-title,
+.event-day {
+  color: var(--theme-main) !important;
+}
+
+/* Nama pengantin / tulisan script */
+.opening-card h1,
+.script-name {
+  color: var(--theme-main) !important;
+}
+
+/* Ampersand & ayat kecil */
+.ampersand,
+.invite-small,
+.small-note,
+.footer-brand,
+.footer-brand h3 {
+  color: var(--theme-soft) !important;
+}
+
+/* Tarikh / details */
+.event-date-text,
+.event-time-box,
+.event-location,
+.parent-name,
+.invite-text,
+.prayer-text,
+.prayer-ending {
+  color: #2b1b18 !important;
+}
+
+/* Bismillah hijau deep green */
+.bismillah,
+.prayer-bismillah {
+  color: var(--theme-green) !important;
+}
+
+/* Button utama */
+.open-button,
+.footer-brand a,
+.location-buttons a {
+  background: linear-gradient(135deg, var(--theme-main), var(--theme-accent)) !important;
+  color: white !important;
+}
+
+/* Bottom menu icon/text */
+.bottom-menu button,
+.bottom-menu a {
+  color: var(--theme-main) !important;
+}
+
+/* Countdown */
+.event-countdown strong {
+  color: var(--theme-main) !important;
+}
+
+.event-countdown span {
+  color: var(--theme-soft) !important;
+}
+
+/* Aturcara */
+.program-dot {
+  background: var(--theme-soft) !important;
+}
+
+.program-timeline::before {
+  background: rgba(86, 8, 15, 0.35) !important;
+}
+
+.program-box h3 {
+  color: var(--theme-main) !important;
+}
+
+.program-box p {
+  color: var(--theme-soft) !important;
+}
+
+/* Popup RSVP / Contact / Location */
+.rsvp-title,
+.location-title,
+.contact-info h3 {
+  color: var(--theme-main) !important;
+}
+
+.rsvp-submit {
+  background: linear-gradient(135deg, var(--theme-main), var(--theme-accent)) !important;
+}
+
+/* RSVP YES active */
+.attendance-option.active {
+  background: var(--theme-green) !important;
+  color: white !important;
+}
+/* KECILKAN KAD TARIKH SUPAYA MUAT DALAM FRAME */
+.event-card .event-arch {
+  padding-top: 150px !important;
+  padding-left: 26px !important;
+  padding-right: 26px !important;
+  transform: scale(0.88) !important;
+  transform-origin: top center !important;
+}
+
+/* kecilkan tarikh */
+.event-date-text {
+  font-size: 25px !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 18px !important;
+}
+
+.event-day {
+  font-size: 13px !important;
+  letter-spacing: 5px !important;
+}
+
+/* kecilkan countdown */
+.event-countdown {
+  transform: scale(0.82) !important;
+  transform-origin: center !important;
+  margin-bottom: 20px !important;
+  padding: 8px 6px !important;
+  gap: 6px !important;
+}
+
+.event-countdown div {
+  padding: 8px 2px !important;
+}
+
+.event-countdown strong {
+  font-size: 17px !important;
+}
+
+.event-countdown span {
+  font-size: 9px !important;
+  letter-spacing: 3px !important;
+}
+
+/* kecilkan masa */
+.event-time-box {
+  transform: scale(0.85) !important;
+  margin-bottom: 18px !important;
+}
+
+/* kecilkan lokasi */
+.location-icon {
+  width: 38px !important;
+  height: 38px !important;
+  font-size: 20px !important;
+  margin-bottom: 10px !important;
+}
+
+.event-location {
+  max-width: 250px !important;
+  padding: 12px 16px !important;
+  font-size: 17px !important;
+  line-height: 1.35 !important;
+}
+/* KECILKAN NAMA PENGANTIN DI KAD JEMPUTAN */
+.invitation-card .script-name {
+  font-size: 25px !important;
+  line-height: 1.05 !important;
+  max-width: 280px !important;
+  margin: 6px auto !important;
+}
+/* NAIKKAN ISI KAD JEMPUTAN SIKIT */
+.invitation-card .arch-frame {
+  transform: translateY(-35px) !important;
+}
+/* KEMASKAN KAD JEMPUTAN */
+.invitation-card .bismillah {
+  font-size: 20px !important;
+  margin-bottom: 12px !important;
+  transform: translateY(-8px) !important;
+}
+
+/* Naikkan nama ibu bapa sikit */
+.invitation-card .parent-name {
+  position: relative !important;
+  top: -10px !important;
+}
+
+/* Rapatkan Zuriani dengan bahagian Menjemput */
+.invitation-card .invite-text {
+  margin-top: 1px !important;
+}
+
+/* Kecilkan jarak antara Rusli, &, Zuriani */
+.invitation-card .and-text {
+  margin: 1px 0 !important;
+}
+/* RAPATKAN RUSLI DENGAN & */
+.invitation-card .parent-name {
+  margin: 1px 0 !important;
+}
+/* NAIKKAN SIMBOL & ANTARA NAMA IBU BAPA SAHAJA */
+.parent-and {
+  position: relative !important;
+  top: -10px !important;
+}
+/* TEMA CUSTOMER - BACKGROUND SEKELILING & BOTTOM MENU */
+:root {
+  --oxblood: #56080F;
+  --amber: #DA8429;
+  --deep-green: #1F3E28;
+  --ruby-red: #A80D1D;
+  --terracotta: #9F433E;
+}
+
+/* Background sekeliling kad - DITUKAR KEPADA CREAM */
+body {
+  background: linear-gradient(180deg, #FFFDF2, #F5EDDC) !important;
+}
+
+/* Footer NikahLink */
+.footer-brand {
+  color: var(--terracotta) !important;
+}
+
+.footer-brand h3 {
+  color: var(--oxblood) !important;
+}
+
+.footer-brand a {
+  background: linear-gradient(135deg, var(--oxblood), var(--amber)) !important;
+  color: white !important;
+}
+
+/* Bottom menu bawah */
+.bottom-menu {
+  background: rgba(255, 248, 241, 0.94) !important;
+  border: 1px solid rgba(86, 8, 15, 0.12) !important;
+  box-shadow: 0 14px 35px rgba(86, 8, 15, 0.18) !important;
+}
+
+/* Text dan icon bottom menu */
+.bottom-menu button,
+.bottom-menu a {
+  color: var(--oxblood) !important;
+}
+
+/* Icon bottom menu */
+.bottom-menu span {
+  color: var(--oxblood) !important;
+}
+
+/* Bila hover / tekan */
+.bottom-menu button:active,
+.bottom-menu a:active {
+  transform: scale(0.94) !important;
+  color: var(--amber) !important;
+}
+.bottom-menu {
+  background: linear-gradient(135deg, #56080F, #9F433E) !important;
+  border: 1px solid rgba(218, 132, 41, 0.35) !important;
+}
+
+.bottom-menu button,
+.bottom-menu a,
+.bottom-menu span {
+  color: white !important;
+}
+/* OPENING SCREEN - TEMA CUSTOMER */
+.opening-screen {
+  background:
+    linear-gradient(
+      rgba(86, 8, 15, 0.30),
+      rgba(255, 244, 235, 0.78)
+    ),
+    url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=80") center / cover no-repeat !important;
+}
+
+/* Kad tengah lebih warm premium */
+.opening-card {
+  background:
+    linear-gradient(
+      rgba(255, 248, 241, 0.90),
+      rgba(255, 239, 226, 0.92)
+    ) !important;
+  border: 1px solid rgba(86, 8, 15, 0.12) !important;
+  box-shadow:
+    0 30px 80px rgba(86, 8, 15, 0.22),
+    inset 0 0 25px rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Border dalam kad */
+.opening-card::before {
+  border-color: rgba(218, 132, 41, 0.35) !important;
+}
+
+.opening-card::after {
+  border-color: rgba(86, 8, 15, 0.16) !important;
+}
+
+/* Tajuk kecil */
+.mini-title {
+  color: #9F433E !important;
+  letter-spacing: 5px !important;
+}
+
+/* Nama pengantin */
+.opening-card h1 {
+  color: #56080F !important;
+  text-shadow: 0 2px 8px rgba(86, 8, 15, 0.08) !important;
+}
+
+/* Simbol & */
+.opening-card .ampersand {
+  color: #A80D1D !important;
+}
+
+/* Tarikh */
+.opening-date {
+  color: #7A2D2A !important;
+  font-weight: 600 !important;
+}
+
+/* Button buka jemputan */
+.open-button {
+  background: linear-gradient(135deg, #56080F, #DA8429) !important;
+  color: white !important;
+  box-shadow: 0 14px 35px rgba(86, 8, 15, 0.28) !important;
+}
+
+/* Note bawah */
+.small-note {
+  color: #9F433E !important;
+}
+
+/* Ornament tepi */
+.ornament,
+.corner {
+  color: rgba(86, 8, 15, 0.22) !important;
+}
+/* COVER - ADJUST POSITION SAHAJA, FONT KEKAL SAMA */
+.cover-adjust {
+  justify-content: flex-start !important;
+  padding-top: 115px !important;
+}
+
+/* Pastikan nama masih ikut font asal cover-name */
+.cover-row-name-1,
+.cover-row-name-2 {
+  font-family: "Great Vibes", cursive !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  display: block !important;
+}
+
+/* Pastikan simbol & ikut style asal */
+.cover-row-and {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: 30px !important;
+  color: inherit !important;
+  display: block !important;
+  margin: 10px 0 !important;
+}
+
+/* Adjust setiap row */
+.cover-row-title {
+  position: relative !important;
+  top: 30px !important;
+}
+
+.cover-row-name-1 {
+  position: relative !important;
+  top: 20px !important;
+}
+
+.cover-row-and {
+  position: relative !important;
+  top: 20px !important;
+}
+
+.cover-row-name-2 {
+  position: relative !important;
+  top: 20px !important;
+}
+
+.cover-row-date {
+  position: relative !important;
+  top: -10px !important;
+}
+
+.cover-row-place {
+  position: relative !important;
+  top: -10px !important;
+}
+
+.cover-row-quote {
+  position: relative !important;
+  top: -10px !important;
+}
+/* KECILKAN SEMUA ATURCARA MAJLIS */
+.program-title {
+  font-size: 15px !important;
+  letter-spacing: 4px !important;
+  margin-bottom: 18px !important;
+}
+
+.program-timeline {
+  max-width: 260px !important;
+  gap: 9px !important;
+  transform: scale(0.88) !important;
+  transform-origin: top center !important;
+}
+
+.program-box {
+  padding: 9px 12px !important;
+  border-radius: 9px !important;
+}
+
+.program-box h3 {
+  font-size: 11px !important;
+  letter-spacing: 3px !important;
+  margin-bottom: 4px !important;
+}
+
+.program-box p {
+  font-size: 11px !important;
+  letter-spacing: 2.5px !important;
+  line-height: 1.2 !important;
+  margin: 2px 0 !important;
+}
+
+.program-item {
+  gap: 9px !important;
+}
+
+.program-dot {
+  width: 7px !important;
+  height: 7px !important;
+  flex: 0 0 7px !important;
+}
+
+.program-timeline::before {
+  left: 10px !important;
+}
+/* BAWAHKAN ATURCARA MAJLIS SIKIT */
+.program-timeline {
+  margin-top: 35px !important;
+}
+.program-timeline {
+  margin-top: 50px !important;
+}
+/* NAIKKAN KAD DOA SIKIT */
+.prayer-card .prayer-arch {
+  transform: translateY(-35px) !important;
+}
+/* TURUNKAN TAJUK ATURCARA MAJLIS SAHAJA */
+.program-title {
+  position: relative !important;
+  top: 40px !important;
+}
+/* KECILKAN PERKATAAN MAJLIS PERKAHWINAN */
+.cover-row-title,
+.cover-title {
+  font-size: 13px !important;
+  letter-spacing: 4px !important;
+}
+.cover-row-title,
+.cover-title {
+  font-size: 11px !important;
+  letter-spacing: 3px !important;
+}
+/* NAIKKAN LAGI SEMUA TULISAN COVER */
+.cover-adjust {
+  justify-content: flex-start !important;
+  padding-top: 70px !important;
+}
+/* BAWAHKAN PERKATAAN MAJLIS PERKAHWINAN SAHAJA */
+.cover-row-title,
+.cover-title {
+  position: relative !important;
+  top: 50px !important;
+}
+/* NAIKKAN SEMUA ATURCARA MAJLIS */
+.program-arch {
+  padding-top: 90px !important;
+}
+/* RAPATKAN NAMA PENGANTIN */
+.cover-row-name-1 {
+  position: relative !important;
+  top: 0px !important;
+}
+
+.cover-row-and {
+  position: relative !important;
+  top: -25px !important;
+  margin: 0 !important;
+}
+
+.cover-row-name-2 {
+  position: relative !important;
+  top: -45px !important;
+}
+.cover-row-and {
+  top: -15px !important;
+}
+
+.cover-row-name-2 {
+  top: -30px !important;
+}
+/* BAWAHKAN NAMA PENGANTIN COVER SAHAJA */
+.cover-name {
+  position: relative !important;
+  top: 60px !important;
+}
+/* BAWAHKAN PERKATAAN MAJLIS PERKAHWINAN SAHAJA */
+.cover-row-title,
+.cover-title {
+  position: relative !important;
+  top: 90px !important;
+}
+/* TURUNKAN BISMILLAH SAHAJA */
+.invitation-card .bismillah {
+  position: relative !important;
+  top: 18px !important;
+}
+/* KECILKAN DAN NAIKKAN KOTAK LOKASI */
+.event-location {
+  max-width: 220px !important;
+  padding: 9px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.25 !important;
+  transform: translateY(-18px) !important;
+}
+
+/* NAIKKAN ICON LOKASI SIKIT */
+.location-icon {
+  transform: translateY(-15px) !important;
+  margin-bottom: 0 !important;
+}
+/* KECILKAN SEMUA ATURCARA */
+.program-timeline {
+  max-width: 245px !important;
+  gap: 7px !important;
+  transform: scale(0.82) !important;
+  transform-origin: top center !important;
+}
+
+.program-box {
+  padding: 8px 10px !important;
+  border-radius: 8px !important;
+}
+
+.program-box h3 {
+  font-size: 10px !important;
+  letter-spacing: 3px !important;
+  margin-bottom: 3px !important;
+}
+
+.program-box p {
+  font-size: 10px !important;
+  letter-spacing: 2.3px !important;
+  line-height: 1.15 !important;
+  margin: 2px 0 !important;
+}
+
+.program-item {
+  gap: 8px !important;
+}
+
+.program-dot {
+  width: 7px !important;
+  height: 7px !important;
+  flex: 0 0 7px !important;
+}
+
+.program-timeline::before {
+  left: 9px !important;
+}
+/* KECILKAN DAN TURUNKAN SIKIT BAHAGIAN DOA */
+.prayer-card .prayer-arch {
+  transform: translateY(18px) !important;
+}
+
+/* Tajuk Doa */
+.prayer-title {
+  font-size: 15px !important;
+  letter-spacing: 5px !important;
+  margin-bottom: 10px !important;
+}
+
+/* Bismillah */
+.prayer-bismillah {
+  font-size: 22px !important;
+  margin-bottom: 22px !important;
+}
+
+/* Isi doa */
+.prayer-text {
+  max-width: 260px !important;
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
+  margin-bottom: 24px !important;
+}
+
+/* Penutup doa */
+.prayer-ending {
+  font-size: 12.5px !important;
+  line-height: 1.4 !important;
+}
+
+/* Garisan hiasan */
+.prayer-card .divider-line {
+  transform: scale(0.85) !important;
+}
+/* NAIKKAN SEMUA BAHAGIAN DOA */
+.prayer-card .prayer-arch {
+  transform: translateY(-60px) !important;
+}
+.prayer-text {
+  max-width: 285px !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+/* SUPAYA AYAT DOA TAK MELEPASI BORDER */
+.prayer-text {
+  max-width: 250px !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.prayer-ending {
+  max-width: 250px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+.prayer-text,
+.prayer-ending {
+  max-width: 230px !important;
+}
+/* TURUNKAN KESELURUHAN BAHAGIAN ATURCARA MAJLIS */
+.program-arch {
+    padding-top: 120px !important; 
+}
+/* TUKAR BACKGROUND SEKELILING KEPADA MAROON */
+body {
+  background: linear-gradient(180deg, #56080F, #2b0307) !important;
+}
+
+/* Pastikan teks footer NikahLink nampak jelas atas background Maroon */
+.footer-brand,
+.footer-brand p,
+.footer-brand .tagline {
+  color: #F5EDDC !important;
+}
+
+.footer-brand h3 {
+  color: #DA8429 !important;
+}
+
+/* Kecilkan sedikit saiz nama pengantin di cover jika terlalu panjang */
+.opening-card h1 {
+  font-size: 52px !important;
+}
+
+.cover-row-name-1,
+.cover-row-name-2 {
+  font-size: 44px !important;
+}
+/* KAD 6 - UCAPAN TETAMU */
+.wishes-card {
+  position: relative;
+  width: min(92vw, 430px);
+  aspect-ratio: 9 / 16;
+  margin: 18px auto;
+  padding: 0;
+  border-radius: 18px;
+  background-image: url("images/Pearl Grace 14.png?v=10");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: white;
+  box-shadow: 0 16px 35px rgba(60, 40, 35, 0.18);
+  overflow: hidden;
+}
+
+.wishes-arch {
+  justify-content: flex-start !important;
+  padding: 115px 38px 65px !important;
+  height: 100%;
+}
+
+.wishes-title {
+  margin: 0 0 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #56080F !important;
+  text-transform: uppercase;
+}
+
+.wishes-list {
+  width: 100%;
+  max-width: 260px;
+  height: 165px;
+  margin: 0 auto 14px;
+  padding: 10px;
+  overflow-y: auto;
+  border-radius: 12px;
+  background: rgba(255, 248, 244, 0.85);
+  border: 1px solid rgba(86, 8, 15, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.wish-item {
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 3px 8px rgba(86, 8, 15, 0.06);
+  border-left: 3px solid #56080F;
+}
+
+.wish-item h4 {
+  margin: 0 0 3px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #56080F;
+}
+
+.wish-item p {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: #2b1b18;
+}
+
+.wishes-form {
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wishes-form input,
+.wishes-form textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(86, 8, 15, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  color: #2b1b18;
+  outline: none;
+  resize: none;
+}
+
+.wishes-form input:focus,
+.wishes-form textarea:focus {
+  border-color: #56080F;
+}
+
+.wish-submit-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #56080F, #DA8429);
+  color: white;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(86, 8, 15, 0.22);
+}
+
+@media (max-width: 430px) {
+  .wishes-arch {
+    padding: 100px 32px 55px !important;
+  }
+  .wishes-list {
+    max-width: 235px;
+    height: 140px;
+  }
+  .wishes-form {
+    max-width: 235px;
+  }
+}
